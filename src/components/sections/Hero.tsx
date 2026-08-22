@@ -7,6 +7,7 @@ import {
   SiPhp,
   SiLaravel,
   SiLivewire,
+  SiInertia,
   SiMysql,
   SiTailwindcss,
   SiHtml5,
@@ -30,7 +31,7 @@ function getProjectBadge(title: string) {
 }
 
 const INTRODUCTION_TEXT =
-  'I build modern, responsive, scalable web applications with clean code and greate user experience. Passionate about Laravel, Livewire, and React.';
+  'I build modern, responsive, scalable web applications with clean code and great user experience. Passionate about Laravel, Livewire, Inertia.js, and React.';
 
 export default function Hero() {
   const [typedIntroduction, setTypedIntroduction] = useState('');
@@ -120,7 +121,7 @@ export default function Hero() {
                 <span className="text-[var(--text-secondary)]">,</span>
               </div>
 
-              {/* Line 4: skills: ["Laravel", "Livewire", "React", "MySQL"], */}
+              {/* Line 4: skills: ["Laravel", "Livewire", "React", "Inertia.js", "MySQL"], */}
               <div className="pl-4">
                 <span className="text-[var(--syntax-key)]">skills</span>
                 <span className="text-[var(--text-secondary)]">: </span>
@@ -130,6 +131,8 @@ export default function Hero() {
                 <span className="text-[var(--syntax-string)]">"Livewire"</span>
                 <span className="text-[var(--text-secondary)]">, </span>
                 <span className="text-[var(--syntax-string)]">"React"</span>
+                <span className="text-[var(--text-secondary)]">, </span>
+                <span className="text-[var(--syntax-string)]">"Inertia.js"</span>
                 <span className="text-[var(--text-secondary)]">, </span>
                 <span className="text-[var(--syntax-string)]">"MySQL"</span>
                 <span className="text-yellow-500 font-bold">]</span>
@@ -243,6 +246,17 @@ export default function Hero() {
               <div className="flex items-center gap-1">
                 <SiLivewire className="text-[#fb70a9] text-xl" />
                 <span className="text-[10px] font-mono font-bold text-[#fb70a9]">livewire</span>
+              </div>
+            </div>
+
+            {/* Inertia.js (3 o'clock / 0deg, outer ring) */}
+            <div
+              className="orbiting-item z-30 flex flex-col items-center justify-center p-2 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] shadow-md pointer-events-auto hover:border-[var(--accent-blue)] transition-colors"
+              style={{ '--angle': '0deg', '--radius': '160px', '--duration': '28s' } as React.CSSProperties}
+            >
+              <div className="flex items-center gap-1">
+                <SiInertia className="text-[#9553e9] text-xl" />
+                <span className="text-[10px] font-mono font-bold text-[#9553e9]">inertia</span>
               </div>
             </div>
 

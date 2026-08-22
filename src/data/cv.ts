@@ -5,7 +5,7 @@ type CVRecord = {
 };
 
 const DEFAULT_CV: CVRecord = {
-  file: '/Cvs/joshua_cabuang_cv.pdf',
+  file: '/Cvs/joshua_cabuang_cv (3).pdf',
 };
 
 function isCVRecord(value: unknown): value is CVRecord {

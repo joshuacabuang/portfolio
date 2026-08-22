@@ -9,6 +9,7 @@ import {
   SiGit,
   SiGithub,
   SiLivewire,
+  SiInertia,
 } from 'react-icons/si';
 
 export default function About() {
@@ -183,6 +184,10 @@ export default function About() {
               <li className="flex items-center gap-2.5 select-none">
                 <SiLivewire className="text-[#fb70a9] text-lg shrink-0" />
                 <span className="text-[var(--text-secondary)]">Livewire</span>
+              </li>
+              <li className="flex items-center gap-2.5 select-none">
+                <SiInertia className="text-[#9553e9] text-lg shrink-0" />
+                <span className="text-[var(--text-secondary)]">Inertia.js</span>
               </li>
             </ul>
           </div>
