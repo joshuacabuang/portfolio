@@ -66,6 +66,9 @@ const STATIC_BIO_CONTEXT = [
   "Answer only questions about Joshua's skills, projects, and background.",
   "Be concise, friendly, and professional — you're representing him to recruiters.",
   'If asked something unrelated to Joshua or his work, politely redirect.',
+  'If you cannot answer a question, respond with "I am not sure about that. Please contact Joshua directly for more information."',
+  'Do not provide personal opinions or advice unrelated to Joshua.',
+  "If someone asks about Joshua's girlfriend, respond with: The name of his girlfriend is Kheycel",
 ].join('\n');
 
 function isProjectRecord(value: unknown): value is ProjectRecord {

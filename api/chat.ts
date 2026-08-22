@@ -58,65 +58,108 @@ function isProductionRuntime() {
   return process.env.NODE_ENV === 'production';
 }
 
-function parseOrigin(value: string | null) {
+function parseOrigin(value: string | null | undefined): string | null {
   if (!value) {
     return null;
   }
 
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return null;
+  }
+
   try {
-    return new URL(value).origin;
+    const url = trimmed.startsWith('http://') || trimmed.startsWith('https://')
+      ? new URL(trimmed)
+      : new URL(`https://${trimmed}`);
+    return url.origin.toLowerCase();
   } catch {
     return null;
   }
 }
 
-function isLocalOrigin(value: string | null) {
+function isLocalOrigin(value: string | null): boolean {
   if (!value) {
     return false;
   }
 
   try {
-    const parsed = new URL(value);
-    return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+    const trimmed = value.trim();
+    const url = trimmed.startsWith('http://') || trimmed.startsWith('https://')
+      ? new URL(trimmed)
+      : new URL(`http://${trimmed}`);
+    return url.hostname === 'localhost' || url.hostname === '127.0.0.1';
   } catch {
     return false;
   }
+}
+
+function isSameHost(req: NodeRequest, requestOrigin: string | null): boolean {
+  if (!requestOrigin) {
+    return false;
+  }
+
+  try {
+    const originUrl = new URL(requestOrigin);
+    const hostHeader = getHeader(req, 'x-forwarded-host') || getHeader(req, 'host');
+    if (hostHeader) {
+      const hostName = hostHeader.split(':')[0].toLowerCase();
+      if (originUrl.hostname.toLowerCase() === hostName) {
+        return true;
+      }
+    }
+  } catch {
+    return false;
+  }
+
+  return false;
 }
 
 function hasAllowedOrigin(req: NodeRequest): GateResult {
   const isProduction = isProductionRuntime();
-  const configuredOrigin = process.env.CHAT_ALLOWED_ORIGIN?.trim() || '';
-  if (!configuredOrigin) {
-    if (isProduction) {
-      return {
-        ok: false,
-        status: 500,
-        body: { error: 'Server misconfiguration: CHAT_ALLOWED_ORIGIN is missing.', code: 'misconfigured_server' },
-      };
-    }
-
-    return { ok: true };
-  }
-
-  const allowedOrigin = parseOrigin(configuredOrigin);
-  if (!allowedOrigin) {
-    return {
-      ok: false,
-      status: 500,
-      body: { error: 'Server misconfiguration: CHAT_ALLOWED_ORIGIN is invalid.', code: 'misconfigured_server' },
-    };
-  }
-
   const origin = getHeader(req, 'origin');
   const referer = getHeader(req, 'referer');
-  const isNonProduction = !isProduction;
+  const requestOrigin = parseOrigin(origin) || parseOrigin(referer);
 
-  if (isNonProduction && (isLocalOrigin(origin) || isLocalOrigin(referer))) {
+  // In non-production, always allow localhost / 127.0.0.1
+  if (!isProduction && (isLocalOrigin(origin) || isLocalOrigin(referer))) {
     return { ok: true };
   }
 
-  const requestOrigin = parseOrigin(origin) || parseOrigin(referer);
-  if (requestOrigin === allowedOrigin) {
+  // Same-origin check: if the request comes from the same host running the API, allow it
+  if (isSameHost(req, requestOrigin)) {
+    return { ok: true };
+  }
+
+  // Check configured allowed origins (support comma-separated list)
+  const configuredOriginsRaw = process.env.CHAT_ALLOWED_ORIGIN?.trim() || '';
+  const allowedOrigins: string[] = [];
+
+  if (configuredOriginsRaw) {
+    for (const part of configuredOriginsRaw.split(',')) {
+      const parsed = parseOrigin(part.trim());
+      if (parsed) {
+        allowedOrigins.push(parsed);
+      }
+    }
+  }
+
+  // Include Vercel environment variables if available
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    const parsed = parseOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL);
+    if (parsed) allowedOrigins.push(parsed);
+  }
+  if (process.env.VERCEL_URL) {
+    const parsed = parseOrigin(process.env.VERCEL_URL);
+    if (parsed) allowedOrigins.push(parsed);
+  }
+
+  if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
+    return { ok: true };
+  }
+
+  // Allow missing origin only in local development
+  if (!isProduction && !requestOrigin) {
     return { ok: true };
   }
 
