@@ -7,10 +7,18 @@
         "projectLogo": "/project-logo/blrtlogo.png"
     },
     {
-        "title": " San Carlos City Website Prototype",
+        "title": "San Carlos City Website Prototype",
         "description": "A prototype I created for the San Carlos City website when I was interning, showcasing a modern and user-friendly design.",
         "technologies": ["Tailwind", "AOS (Animate On Scroll)", "HTML", "CSS", "JavaScript"],
         "github": "https://dumbdev6969.github.io/",
+        "projectLogo": ""
+    },
+    {
+        "title": "Job tracker",
+        "description": "A project I created for my job hunting journey.",
+        "technologies": ["Laravel", "React", "Typscript", "PostgreSQL", "Tailwind"],
+        "github": "https://github.com/dumbDev6969/job-tracker",
+        "url": "https://job-tracker-five-omega.vercel.app/",
         "projectLogo": ""
     }
 ]
