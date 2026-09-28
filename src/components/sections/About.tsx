@@ -5,9 +5,11 @@ import {
   SiLaravel,
   SiPhp,
   SiMysql,
+  SiPostgresql,
   SiSqlite,
   SiGit,
   SiGithub,
+  SiPostman,
   SiLivewire,
   SiInertia,
 } from 'react-icons/si';
@@ -115,7 +117,7 @@ export default function About() {
       {/* Middle Part: Tech Stack Section */}
       <div className="mt-20">
         <CommentEyebrow>Tech Stack</CommentEyebrow>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 mt-6">
           {/* Frontend */}
           <div>
             <h3 className="font-sans font-bold text-xs text-[var(--text-primary)] mb-4 uppercase tracking-widest select-none">
@@ -150,10 +152,10 @@ export default function About() {
             </ul>
           </div>
 
-          {/* Database and tools */}
+          {/* Database */}
           <div>
             <h3 className="font-sans font-bold text-xs text-[var(--text-primary)] mb-4 uppercase tracking-widest select-none">
-              Database and tools
+              Database
             </h3>
             <ul className="space-y-4 font-mono text-sm">
               <li className="flex items-center gap-2.5 select-none">
@@ -161,9 +163,22 @@ export default function About() {
                 <span className="text-[var(--text-secondary)]">MySQL</span>
               </li>
               <li className="flex items-center gap-2.5 select-none">
+                <SiPostgresql className="text-[#4169e1] text-lg shrink-0" />
+                <span className="text-[var(--text-secondary)]">PostgreSQL</span>
+              </li>
+              <li className="flex items-center gap-2.5 select-none">
                 <SiSqlite className="text-[#003b57] text-lg shrink-0" />
                 <span className="text-[var(--text-secondary)]">SQLite</span>
               </li>
+            </ul>
+          </div>
+
+          {/* Tools */}
+          <div>
+            <h3 className="font-sans font-bold text-xs text-[var(--text-primary)] mb-4 uppercase tracking-widest select-none">
+              Tools
+            </h3>
+            <ul className="space-y-4 font-mono text-sm">
               <li className="flex items-center gap-2.5 select-none">
                 <SiGit className="text-[#f05032] text-lg shrink-0" />
                 <span className="text-[var(--text-secondary)]">Git</span>
@@ -171,6 +186,10 @@ export default function About() {
               <li className="flex items-center gap-2.5 select-none">
                 <SiGithub className="text-[var(--text-primary)] text-lg shrink-0 animate-pulse-slow" />
                 <span className="text-[var(--text-secondary)]">GitHub</span>
+              </li>
+              <li className="flex items-center gap-2.5 select-none">
+                <SiPostman className="text-[#ff6c37] text-lg shrink-0" />
+                <span className="text-[var(--text-secondary)]">Postman</span>
               </li>
             </ul>
           </div>
