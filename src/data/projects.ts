@@ -20,6 +20,10 @@ function toProject(value: unknown): Project | null {
     ? project.technologies.filter((tech): tech is string => typeof tech === 'string')
     : null;
   const github = typeof project.github === 'string' ? project.github : null;
+  const url =
+    typeof project.url === 'string' && project.url.trim().length > 0
+      ? project.url.trim()
+      : undefined;
   const projectLogo =
     typeof project.projectLogo === 'string' ? normalizePublicPath(project.projectLogo) : undefined;
 
@@ -30,6 +34,7 @@ function toProject(value: unknown): Project | null {
     description,
     technologies,
     github,
+    url,
     projectLogo,
   };
 }
