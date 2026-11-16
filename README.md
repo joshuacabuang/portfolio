@@ -4,18 +4,18 @@ Personal portfolio website for **Joshua Cabuang**, a self-taught full-stack deve
 
 ---
 
-## ✨ Features
+## Features
 
-- 💻 **"Code Editor" Visual Theme**: Built with a sleek dark aesthetic mimicking modern IDEs and code blocks (`developer.ts`, `about.ts`, syntax highlighting).
-- 🪐 **Interactive Orbiting Tech Stack**: Animated solar system displaying core skills and technologies (Laravel, Livewire, Inertia.js, React, Tailwind CSS, MySQL, PHP).
-- 🤖 **AI-Powered Chat Assistant (`joshua.exe`)**: Floating terminal-inspired chatbot integrated with the Google Gemini API to answer recruiter and visitor queries about Joshua's background, stack, and projects.
-- ⌨️ **Terminal / Chat Slash Commands**: Interactive CLI commands supported directly in the chat widget (`whoami`, `cd about`, `cd projects`, `ls projects`, `ls certifications`, `open resume.pdf`, `clear`, `help`).
-- 📬 **Contact Form**: Direct email delivery powered by Web3Forms with form validation and feedback states.
-- 📱 **Fully Responsive**: Optimized for desktop, tablet, and mobile screens with responsive navigation.
+- **"Code Editor" Visual Theme**: Built with a sleek dark aesthetic mimicking modern IDEs and code blocks (`developer.ts`, `about.ts`, syntax highlighting).
+- **Interactive Orbiting Tech Stack**: Animated solar system displaying core skills and technologies (Laravel, Livewire, Inertia.js, React, Tailwind CSS, MySQL, PHP).
+- **AI-Powered Chat Assistant (`joshua.exe`)**: Floating terminal-inspired chatbot integrated with the Google Gemini API to answer recruiter and visitor queries about Joshua's background, stack, and projects.
+- **Terminal / Chat Slash Commands**: Interactive CLI commands supported directly in the chat widget (`whoami`, `cd about`, `cd projects`, `cd contact`, `cd certificates`, `ls projects`, `ls certifications`, `open resume.pdf`, `clear`, `help`).
+- **Contact Form**: Direct email delivery powered by Web3Forms with form validation and feedback states.
+- **Fully Responsive**: Optimized for desktop, tablet, and mobile screens with responsive navigation.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -25,6 +25,7 @@ Personal portfolio website for **Joshua Cabuang**, a self-taught full-stack deve
 | **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) |
 | **Icons** | [React Icons](https://react-icons.github.io/react-icons/) (Simple Icons set) |
 | **Fonts** | [@fontsource/jetbrains-mono](https://fontsource.org/fonts/jetbrains-mono), [@fontsource/inter](https://fontsource.org/fonts/inter) |
+| **Analytics** | [@vercel/analytics](https://vercel.com/analytics) |
 | **AI Chatbot** | [Google Gemini API](https://ai.google.dev/) (via serverless API handler with model fallback) |
 | **Rate Limiting** | [Vercel KV / Upstash Redis](https://vercel.com/storage/kv) (REST API) |
 | **Contact Form** | [Web3Forms](https://web3forms.com/) |
@@ -32,7 +33,7 @@ Personal portfolio website for **Joshua Cabuang**, a self-taught full-stack deve
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 ├── api/
@@ -49,6 +50,7 @@ Personal portfolio website for **Joshua Cabuang**, a self-taught full-stack deve
 │   ├── data/                   # JSON & TS data for projects, certificates, contact, CV
 │   ├── server/
 │   │   └── chatHandler.ts      # Shared Gemini context builder & fallback handler
+│   ├── types/                  # TypeScript definitions and interfaces
 │   ├── App.tsx                 # Root application component
 │   ├── index.css               # Global styles, Tailwind directives & CSS variables
 │   └── main.tsx                # Application entry point
@@ -59,17 +61,18 @@ Personal portfolio website for **Joshua Cabuang**, a self-taught full-stack deve
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env` file in the root directory (refer to `.env.example`):
 
 ```env
 # Contact Form (Client-side)
-VITE_WEB3FORMS_KEY=your_web3forms_access_key
+VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key_here
+# (VITE_WEB3FORMS_KEY is also supported as an alias)
 
 # Google Gemini API (Server-side)
-GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.6-flash
 GEMINI_MODEL_FALLBACK=gemini-2.5-flash-lite
 
 # Production Security & Allowed Origins (Optional - automatically allows same-host)
@@ -86,7 +89,7 @@ KV_REST_API_TOKEN=...
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 
@@ -115,7 +118,13 @@ The app will be available at `http://localhost:5173`. The local Vite development
 npm run build
 ```
 
-### 5. Lint the codebase
+### 5. Preview production build
+
+```bash
+npm run preview
+```
+
+### 6. Lint the codebase
 
 ```bash
 npm run lint
@@ -123,6 +132,6 @@ npm run lint
 
 ---
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
